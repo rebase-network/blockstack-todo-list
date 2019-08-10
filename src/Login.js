@@ -11,11 +11,11 @@ class Login extends React.Component {
         style={{ padding: "30px 0" }}
         className="ui text container center aligned"
       >
-        <h1>Decentralized Todo List</h1>
-        <p>This is the most secure todo list</p>
+        <h1>Todo List Dapp</h1>
+        <p>This is the Blockstack todo list Dapp</p>
 
         <button className="ui button positive" onClick={this.handleSignIn}>
-          Sign in with blockstack
+           通过Blockstack登录
         </button>
       </div>
     )

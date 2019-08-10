@@ -79,13 +79,13 @@ class TodoList extends React.Component {
       <div style={{ padding: "30px 0" }} className="ui text container center aligned">
 
         <button className="ui button negative" onClick={this.handleSignout}>
-          Sign out
+          退出
         </button>
 
         <h1>{account && account.name()}</h1>
         <img className="ui centered medium rounded image" src={account && account.avatarUrl()} alt="account profile image" />
 
-        <h2>My Todos</h2>
+        <h2>我的 Todos</h2>
         <div className="ui grid">
           <div className="row centered">
             <div className="column twelve wide">
@@ -99,7 +99,7 @@ class TodoList extends React.Component {
                     />
                   </div>
                   <button className="ui button primary" type="submit">
-                    Add todo
+                    添加 Todo
                   </button>
                 </div>
               </form>
