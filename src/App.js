@@ -6,6 +6,18 @@ const appConfig = new AppConfig(["store_write"])
 const userSession = new UserSession({ appConfig: appConfig })
 
 class App extends React.Component {
+
+  componentWillMount() {
+    if (userSession.isSignInPending()) {
+      userSession
+        .handlePendingSignIn()
+        .then(() => {
+          window.location = window.location.origin;
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
   render() {
     return (
       <div>

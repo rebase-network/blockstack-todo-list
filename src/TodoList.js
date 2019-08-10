@@ -35,12 +35,18 @@ class TodoList extends React.Component {
     })
   }
 
+  handleSignout = () => {
+    this.props.userSession.signUserOut(window.location.origin)
+  }
+
   render() {
     return (
-      <div
-        style={{ padding: "30px 0" }}
-        className="ui text container center aligned"
-      >
+      <div style={{ padding: "30px 0" }} className="ui text container center aligned">
+
+        <button className="ui button negative" onClick={this.handleSignout}>
+          Sign out
+        </button>
+
         <h2>My Todos</h2>
         <div className="ui grid">
           <div className="row centered">
