@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4b928e4e-86ad-4feb-836f-6399fff7a5b5/deploy-status)](https://app.netlify.com/sites/rebase-todolist/deploys)
+
 ### Blockstack Todo List
 
 ### 操作系统
