@@ -6,27 +6,56 @@ class TodoList extends React.Component {
     newTodo: "",
   }
 
-  handleCheckboxClick(id) {
-    let newTodos = [...this.state.todos]
-    newTodos[newTodos.findIndex(todo => todo.id === id)].done = true
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  async fetchData() {
+    const options = { decrypt: true };
+    const file = await this.props.userSession.getFile("todos.json", options);
+    let todos = JSON.parse(file || "[]");
     this.setState({
-      todos: newTodos,
-    })
+      todos
+    });
+  }
+
+  handleCheckboxClick(id) {
+    let newTodos = [...this.state.todos];
+    newTodos[newTodos.findIndex(todo => todo.id === id)].done = true;
+    const options = { encrypt: true };
+
+    this.props.userSession
+      .putFile("todos.json", JSON.stringify(newTodos), options)
+      .then(() => {
+        this.setState({
+          todos: newTodos
+        });
+      });
   }
 
   handleAddTodoClick = e => {
     e.preventDefault()
+
     const newTodo = {
       id: this.state.todos.length + 1,
       title: this.state.newTodo,
       done: false,
     }
+
     const todos = [...this.state.todos]
+
     todos.push(newTodo)
-    this.setState({
-      todos: todos,
-      newTodo: "",
-    })
+
+    const options = { encrypt: true }
+
+    this.props.userSession
+      .putFile("todos.json", JSON.stringify(todos), options)
+      .then(() => {
+        this.setState({
+          todos,
+          newTodo: "",
+        })
+      })
   }
 
   hanldeInputChange = e => {
