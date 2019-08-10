@@ -16,6 +16,14 @@ class App extends React.Component {
     ],
   }
 
+  handleCheckboxClick(id) {
+    let newTodos = [...this.state.todos];
+    newTodos[newTodos.findIndex(todo => todo.id === id)].done = true;
+    this.setState({
+      todos: newTodos
+    });
+  }
+
   render() {
     return (
       <div style={{ padding: "30px 0" }}
@@ -30,7 +38,8 @@ class App extends React.Component {
                     .map(todo => (
                       <div key={todo.id} className="field">
                         <div className="ui checkbox">
-                          <input type="checkbox" />
+                          <input type="checkbox" onClick={() => { this.handleCheckboxClick(todo.id)}}/>
+
                           <label>{todo.title}</label>
                         </div>
                       </div>
