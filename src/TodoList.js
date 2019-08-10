@@ -1,9 +1,11 @@
 import React from "react"
+import { Person } from "blockstack"
 
 class TodoList extends React.Component {
   state = {
     todos: [],
     newTodo: "",
+    account: null,
   }
 
   componentDidMount() {
@@ -14,8 +16,10 @@ class TodoList extends React.Component {
     const options = { decrypt: true };
     const file = await this.props.userSession.getFile("todos.json", options);
     let todos = JSON.parse(file || "[]");
+
     this.setState({
-      todos
+      todos,
+      account: new Person(this.props.userSession.loadUserData().profile),
     });
   }
 
@@ -69,12 +73,17 @@ class TodoList extends React.Component {
   }
 
   render() {
+    const { account } = this.state;
+
     return (
       <div style={{ padding: "30px 0" }} className="ui text container center aligned">
 
         <button className="ui button negative" onClick={this.handleSignout}>
           Sign out
         </button>
+
+        <h1>{account && account.name()}</h1>
+        <img className="ui centered medium rounded image" src={account && account.avatarUrl()} alt="account profile image" />
 
         <h2>My Todos</h2>
         <div className="ui grid">
