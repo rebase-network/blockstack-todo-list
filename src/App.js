@@ -1,4 +1,8 @@
 import React from "react"
+import { UserSession, AppConfig } from "blockstack";
+
+const appConfig = new AppConfig(["store_write"]);
+const userSession = new UserSession({ appConfig: appConfig });
 
 class App extends React.Component {
   state = {
@@ -19,6 +23,10 @@ class App extends React.Component {
     this.setState({
       newTodo: e.target.value,
     })
+  }
+
+  handleSignIn = () => {
+    userSession.redirectToSignIn()
   }
 
   handleAddTodoClick = e => {
@@ -43,8 +51,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style={{ padding: "30px 0" }}
-          className="ui text container center aligned">
+      <div style={{ padding: "30px 0" }} className="ui text container center aligned">
+
+          <button className="ui button positive" onClick={this.handleSignIn}>
+            Sign in with blockstack
+          </button>
+
           <h2>My Todos</h2>
           <div className="ui grid">
             <div className="row centered">
