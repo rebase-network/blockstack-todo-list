@@ -2,26 +2,43 @@ import React from "react"
 
 class App extends React.Component {
   state = {
-    todos: [
-      {
-        id: 1,
-        title: "Wash the dishes",
-        done: false,
-      },
-      {
-        id: 2,
-        title: "Clean my room",
-        done: false,
-      },
-    ],
+    todos: [],
+    newTodo: "",
   }
 
   handleCheckboxClick(id) {
     let newTodos = [...this.state.todos];
     newTodos[newTodos.findIndex(todo => todo.id === id)].done = true;
+
     this.setState({
       todos: newTodos
     });
+  }
+
+  hanldeInputChange = e => {
+    this.setState({
+      newTodo: e.target.value,
+    })
+  }
+
+  handleAddTodoClick = e => {
+    e.preventDefault()
+
+    const newTodo = {
+      id: this.state.todos.length + 1,
+      title: this.state.newTodo,
+      done: false,
+    }
+
+    const todos = [...this.state.todos]
+
+    todos.push(newTodo)
+
+    this.setState({
+      todos: todos,
+      newTodo: "",
+    })
+
   }
 
   render() {
@@ -32,14 +49,31 @@ class App extends React.Component {
           <div className="ui grid">
             <div className="row centered">
               <div className="column twelve wide">
+                <form className="ui form" onSubmit={this.handleAddTodoClick}>
+                  <div className="inline fields">
+                    <div className="twelve wide field">
+                      <input
+                        type="text"
+                        value={this.state.newTodo}
+                        onChange={this.hanldeInputChange}
+                      />
+                    </div>
+                    <button className="ui button primary" type="submit">
+                      Add todo
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="row centered">
+              <div className="column twelve wide">
                 <div className="grouped fields">
                   {this.state.todos
                     .filter(todo => !todo.done)
                     .map(todo => (
                       <div key={todo.id} className="field">
                         <div className="ui checkbox">
-                          <input type="checkbox" onClick={() => { this.handleCheckboxClick(todo.id)}}/>
-
+                          <input type="checkbox" onClick={() => {this.handleCheckboxClick(todo.id);}}/>
                           <label>{todo.title}</label>
                         </div>
                       </div>
@@ -49,8 +83,9 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-    );
+      );
   }
+
 }
 
 export default App;
