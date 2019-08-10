@@ -14,12 +14,12 @@ class TodoList extends React.Component {
 
   async fetchData() {
     const options = { decrypt: true };
-    const file = await this.props.userSession.getFile("todos.json", options);
+    const file = await this.props.userSession.getFile("todos.json", options); //得到文件数据
     let todos = JSON.parse(file || "[]");
 
     this.setState({
       todos,
-      account: new Person(this.props.userSession.loadUserData().profile),
+      account: new Person(this.props.userSession.loadUserData().profile), //得到用户数据
     });
   }
 
@@ -29,7 +29,7 @@ class TodoList extends React.Component {
     const options = { encrypt: true };
 
     this.props.userSession
-      .putFile("todos.json", JSON.stringify(newTodos), options)
+      .putFile("todos.json", JSON.stringify(newTodos), options) // 推送数据
       .then(() => {
         this.setState({
           todos: newTodos
@@ -50,10 +50,10 @@ class TodoList extends React.Component {
 
     todos.push(newTodo)
 
-    const options = { encrypt: true }
+    const options = { encrypt: true } // 加密文件
 
     this.props.userSession
-      .putFile("todos.json", JSON.stringify(todos), options)
+      .putFile("todos.json", JSON.stringify(todos), options) // 推送文件
       .then(() => {
         this.setState({
           todos,
@@ -69,7 +69,7 @@ class TodoList extends React.Component {
   }
 
   handleSignout = () => {
-    this.props.userSession.signUserOut(window.location.origin)
+    this.props.userSession.signUserOut(window.location.origin) // 登出blockstack
   }
 
   render() {
@@ -83,7 +83,7 @@ class TodoList extends React.Component {
         </button>
 
         <h1>{account && account.name()}</h1>
-        <img className="ui centered medium rounded image" src={account && account.avatarUrl()} alt="account profile image" />
+        <img className="ui centered medium rounded image"  style={{height:"200px", width:"200px"}} src={account && account.avatarUrl()} alt="account profile image" />
 
         <h2>我的 Todos</h2>
         <div className="ui grid">

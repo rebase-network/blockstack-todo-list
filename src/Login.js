@@ -2,7 +2,7 @@ import React from "react"
 
 class Login extends React.Component {
   handleSignIn = () => {
-    this.props.userSession.redirectToSignIn()
+    this.props.userSession.redirectToSignIn() // 登录
   }
 
   render() {
